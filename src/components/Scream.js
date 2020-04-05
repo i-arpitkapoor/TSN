@@ -35,7 +35,7 @@ class Scream extends Component {
         console.log(createdAt)
         return (
             // added this outer div to adjust width. wasnt actually done
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "97%" }}>
                 <Card className={classes.card}>
                     <CardMedia
                         image={userImage}
