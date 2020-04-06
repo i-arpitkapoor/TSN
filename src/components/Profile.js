@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
-
+import EditDetails from './EditDetails'
 //redux
 import { connect } from 'react-redux'
 import { logoutUser, uploadImage } from '../redux/actions/userActions'
@@ -22,6 +22,7 @@ import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import EditIcon from '@material-ui/icons/Edit'
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 const styles = (theme) => ({
     paper: {
@@ -83,6 +84,11 @@ class Profile extends Component {
         const fileInput = document.getElementById('imageInput');
         fileInput.click();
     }
+
+    handleLogout = () => {
+        this.props.logoutUser();
+    }
+
     render() {
         const {
             classes,
@@ -121,7 +127,7 @@ class Profile extends Component {
                         {location && (
                             <Fragment>
                                 <LocationOn color="primary" /> <span>{location}</span>
-
+                                <hr />
                             </Fragment>
                         )}
                         {website && (
@@ -130,13 +136,20 @@ class Profile extends Component {
                                 <a href={website} target="_blank" rel="noopener noreferrer">
                                     {' '}{website}
                                 </a>
+                                <hr />
                             </Fragment>
                         )}
                         <CalendarToday color="primary" />{' '}
                         <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
                     </div>
+                    <Tooltip title="logout" placement="top">
+                        <IconButton onClick={this.handleLogout}>
+                            <KeyboardReturn color="primary" />
+                        </IconButton>
+                    </Tooltip>
+                    <EditDetails />
                 </div>
-            </Paper>
+            </Paper >
         ) : (   // not authenticated
                 <Paper className={classes.paper}>
                     <Typography variant="body2" align="center">
