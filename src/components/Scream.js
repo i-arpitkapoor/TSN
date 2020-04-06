@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import PropTypes from 'prop-types'
 import MyButton from '../util/MyButton';
+import DeleteScream from './DeleteScream'
 
 
 
@@ -25,6 +26,7 @@ import { likeScream, unlikeScream } from '../redux/actions/dataActions'
 
 const styles = {
     card: {
+        position: "relative",
         display: 'flex',
         marginBottom: 20,
     },
@@ -57,7 +59,9 @@ class Scream extends Component {
         dayjs.extend(relativeTime)
         const { classes, scream: { body, createdAt, userImage, userHandle, screamId, likeCount, commentCount },
             user: {
-                authenticated
+                authenticated, credentials: {
+                    handle
+                }
             } } = this.props  // const classes = this.props.classes, const body = this.props.screams.body
         const likeButton = !authenticated ? (
             <MyButton tip="Like">
@@ -79,6 +83,9 @@ class Scream extends Component {
             )
 
         console.log(createdAt)
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteScream screamId={screamId} />
+        ) : null
         return (
             // added this outer div to adjust width. wasnt actually done
             <div style={{ width: "97%" }}>
@@ -94,6 +101,7 @@ class Scream extends Component {
                             color="primary">
                             {userHandle}
                         </Typography>
+                        {deleteButton}
                         <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                         <Typography variant="body1">{body}</Typography>
                         {likeButton}
