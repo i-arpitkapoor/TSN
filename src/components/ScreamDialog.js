@@ -38,6 +38,15 @@ const styles = theme => ({
     closeButton: {
         position: 'absolute',
         left: "90%"
+    },
+    expandButton: {
+        position: 'absolute',
+        left: '90%'
+    },
+    spinner: {
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50
     }
 })
 
@@ -57,7 +66,10 @@ class ScreamDialog extends Component {
         const { classes, scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle },
             UI: { loading } } = this.props
         const dialogMarkup = loading ? (
-            <CircularProgress size={200} />
+            <div className={classes.spinner}>
+                <CircularProgress size={200} />
+
+            </div>
         ) : (
                 <Grid container spacing={16}>
                     <Grid item sm={5}>
@@ -94,7 +106,7 @@ class ScreamDialog extends Component {
                     fullWidth
                     maxWidth="sm"
                 >
-                    <MyButton tip="Close" onClick={this.handleClose} tipCLassName={classes.closeButton}>
+                    <MyButton tip="Close" onClick={this.handleClose} tipClassName={classes.closeButton}>
                         <CloseIcon />
                     </MyButton>
                     <DialogContent className={classes.dialogContent}>
