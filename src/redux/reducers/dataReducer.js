@@ -28,9 +28,13 @@ export default function (state = initialState, action) {
         case UNLIKE_SCREAM:
             let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId)
             state.screams[index] = action.payload
-            return {
-                ...state
+            if (state.scream.screamId === action.payload.screamId) {
+                state.scream = action.payload
             }
+            if (state.scream.screamId)
+                return {
+                    ...state
+                }
         case DELETE_SCREAM:
             let index2 = state.screams.findIndex(scream => scream.screamId === action.payload);
             state.screams.splice(index2, 1);
