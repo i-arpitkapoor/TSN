@@ -26,15 +26,24 @@ export default function (state = initialState, action) {
             }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
+            // check this section of code as i have changed this
+            // what was happening was whenever i clicked like or unlike
+            // from screamDialog comments were getting removed from new state
+            // so here i set the new state as all the properties of old state
+            // see **
+            // and added new properties
+            // see ##
             let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId)
             state.screams[index] = action.payload
             if (state.scream.screamId === action.payload.screamId) {
-                state.scream = action.payload
-            }
-            if (state.scream.screamId)
-                return {
-                    ...state
+                state.scream = {
+                    ...state.scream,    // **
+                    ...action.payload  // ##
                 }
+            }
+            return {
+                ...state
+            }
         case DELETE_SCREAM:
             let index2 = state.screams.findIndex(scream => scream.screamId === action.payload);
             state.screams.splice(index2, 1);
